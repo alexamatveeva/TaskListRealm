@@ -1,2 +1,2 @@
 # TaskListRealm
-This is the educational project where I try to use new knowledge about the Realm
+Учебное приложение со списком задач по категориям. Данные записываются c помощью Realm.
