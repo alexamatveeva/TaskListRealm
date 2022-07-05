@@ -38,7 +38,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="slG-1K-Rea" kind="show" identifier="goToTask" id="Oxd-cN-ZiY"/>
+                        <segue destination="slG-1K-Rea" kind="show" identifier="goToTasks" id="Oxd-cN-ZiY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EKg-LQ-bhl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

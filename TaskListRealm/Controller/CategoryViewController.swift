@@ -16,7 +16,6 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.separatorStyle = .none
         loadCategories()
     }
 
@@ -30,27 +29,46 @@ class CategoryViewController: UITableViewController {
         }
     }
     
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         
         
-        if categories?.count == 0 {
+        if categories?.count != 0 {
             
-            cell.textLabel?.text = "Категорий дел пока нет"
-            cell.textLabel?.textColor = UIColor(.gray)
+            cell.textLabel?.text = categories?[indexPath.row].name
+            cell.textLabel?.textColor = UIColor(.primary)
+            tableView.separatorStyle = .singleLine
             
             return cell
         } else {
             
-            cell.textLabel?.text = categories?[indexPath.row].name
+            cell.textLabel?.text = "Категорий дел пока нет"
+            cell.textLabel?.textColor = UIColor(.gray)
+            tableView.separatorStyle = .none
             
             return cell
         }
         
     }
     
+    //MARK: - TableView Delegate Methods
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if categories?.count != 0 {
+            performSegue(withIdentifier: "goToTasks", sender: self)
+        }
+    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TaskListViewController
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedCategory = categories?[indexPath.row]
+        }
+    }
+    
+    //MARK: - Create New Category
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
         var textField = UITextField()
@@ -58,12 +76,20 @@ class CategoryViewController: UITableViewController {
         let alert = UIAlertController(title: "Добавить новую категорию задачек", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Добавить категорию", style: .default) { action in
-            if textField.text != nil {
-                let newCategory = Category()
-                newCategory.name = textField.text!
-                newCategory.dateCreated = Date()
+            if textField.text != "" {
                 
-                self.save(category: newCategory)
+                do {
+                    try self.realm.write({
+                        let newCategory = Category()
+                        newCategory.name = textField.text!
+                        newCategory.dateCreated = Date()
+                        self.realm.add(newCategory)
+                    })
+                } catch {
+                    print("Error saving context \(error)")
+                }
+                self.tableView.reloadData()
+                
             }
         }
         
@@ -79,19 +105,10 @@ class CategoryViewController: UITableViewController {
         
     }
     
+    
+    //MARK: - Manipulation Data
     func loadCategories() {
         categories = realm.objects(Category.self)
-        tableView.reloadData()
-    }
-    
-    func save(category: Category) {
-        do {
-            try realm.write({
-                realm.add(category)
-            })
-        } catch {
-            print("Error saving context \(error)")
-        }
         tableView.reloadData()
     }
     

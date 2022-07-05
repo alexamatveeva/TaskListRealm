@@ -12,5 +12,5 @@ class Category: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var color: String?
     @objc dynamic var dateCreated: Date = Date()
-    var tasks = List<Task>()
+    let tasks = List<Task>()
 }
