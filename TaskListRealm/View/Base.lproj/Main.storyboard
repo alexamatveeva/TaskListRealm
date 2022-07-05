@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="kaN-rQ-rHO">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="kaN-rQ-rHO">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kaN-rQ-rHO" id="Njb-j6-mz1">
@@ -30,7 +30,13 @@
                             <outlet property="delegate" destination="47M-fz-XwR" id="ueb-Wa-b0v"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Категории" id="9O2-Ay-Trr"/>
+                    <navigationItem key="navigationItem" title="Категории" id="9O2-Ay-Trr">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Hae-Lx-NML">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="47M-fz-XwR" id="T7L-yv-ImT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="slG-1K-Rea" kind="show" identifier="goToTask" id="Oxd-cN-ZiY"/>
                     </connections>
@@ -39,7 +45,7 @@
             </objects>
             <point key="canvasLocation" x="1410" y="92"/>
         </scene>
-        <!--Task List View Controller-->
+        <!--Имя категории-->
         <scene sceneID="vbS-ju-caG">
             <objects>
                 <tableViewController id="slG-1K-Rea" customClass="TaskListViewController" customModule="TaskListRealm" customModuleProvider="target" sceneMemberID="viewController">
@@ -48,7 +54,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" id="OIg-qu-Vv2">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="TaskCell" id="OIg-qu-Vv2">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OIg-qu-Vv2" id="7TH-fO-4gF">
@@ -62,7 +68,13 @@
                             <outlet property="delegate" destination="slG-1K-Rea" id="pva-Re-FgT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="XlJ-eZ-Bpr"/>
+                    <navigationItem key="navigationItem" title="Имя категории" id="XlJ-eZ-Bpr">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="CaS-aT-1Ll">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="slG-1K-Rea" id="3M1-v4-Rdo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="69h-fv-A60" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
