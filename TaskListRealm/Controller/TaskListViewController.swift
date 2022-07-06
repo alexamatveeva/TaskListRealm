@@ -76,6 +76,27 @@ class TaskListViewController: UITableViewController {
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if let taskForDeletion = taskList?[indexPath.row] {
+                do {
+                    try realm.write({
+                        realm.delete(taskForDeletion)
+                        
+                    })
+                } catch {
+                    print("Error deleting task, \(error)")
+                }
+            }
+            tableView.reloadData()
+
+        }
+    }
 
     //MARK: - Add New Task
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
