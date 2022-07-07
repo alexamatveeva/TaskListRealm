@@ -77,25 +77,56 @@ class TaskListViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            if let taskForDeletion = taskList?[indexPath.row] {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "Удалить") { contextualAction, view, boolValue in
+            if let taskForDeletion = self.taskList?[indexPath.row] {
                 do {
-                    try realm.write({
-                        realm.delete(taskForDeletion)
-                        
+                    try self.realm.write({
+                        self.realm.delete(taskForDeletion)
                     })
                 } catch {
                     print("Error deleting task, \(error)")
                 }
             }
-            tableView.reloadData()
-
+            self.tableView.reloadData()
         }
+        
+        let edit = UIContextualAction(style: .normal, title: "Изменить") { contextualAction, view, boolValue in
+            var textField = UITextField()
+            textField.text = self.taskList?[indexPath.row].title
+            
+            let alert = UIAlertController(title: "Изменить название задачи", message: "", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "Изменить задачу", style: .default) { action in
+                if textField.text != "" {
+                    
+                    do {
+                        try self.realm.write({
+                            self.taskList?[indexPath.row].title = textField.text!
+                        })
+                    } catch {
+                        print("Error editing task \(error)")
+                    }
+                    self.tableView.reloadData()
+                    
+                }
+            }
+            
+            alert.addTextField { alertTextField in
+                alertTextField.placeholder = "Название задачи"
+                alertTextField.text = textField.text
+                textField = alertTextField
+            }
+            
+            alert.addAction(action)
+            self.present(alert, animated: true)
+        }
+        
+        edit.backgroundColor = UIColor.blue
+        
+        let swipeActions = UISwipeActionsConfiguration(actions: [delete, edit])
+        
+        return swipeActions
     }
 
     //MARK: - Add New Task

@@ -98,7 +98,7 @@ class CategoryViewController: UITableViewController {
                             self.categories?[indexPath.row].name = textField.text!
                         })
                     } catch {
-                        print("Error editing context \(error)")
+                        print("Error editing category \(error)")
                     }
                     self.tableView.reloadData()
                     
