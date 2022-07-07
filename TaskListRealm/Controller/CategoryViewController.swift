@@ -68,27 +68,59 @@ class CategoryViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            if let categoryForDeletion = categories?[indexPath.row] {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "Удалить") { contextualAction, view, boolValue in
+            if let categoryForDeletion = self.categories?[indexPath.row] {
                 do {
-                    try realm.write({
-                        realm.delete(categoryForDeletion.tasks)
-                        realm.delete(categoryForDeletion)
-                        
+                    try self.realm.write({
+                        self.realm.delete(categoryForDeletion.tasks)
+                        self.realm.delete(categoryForDeletion)
                     })
                 } catch {
                     print("Error deleting task, \(error)")
                 }
             }
-            tableView.reloadData()
-
+            self.tableView.reloadData()
         }
+        
+        let edit = UIContextualAction(style: .normal, title: "Изменить") { contextualAction, view, boolValue in
+            var textField = UITextField()
+            textField.text = self.categories?[indexPath.row].name
+            
+            let alert = UIAlertController(title: "Изменить название категории", message: "", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "Изменить категорию", style: .default) { action in
+                if textField.text != "" {
+                    
+                    do {
+                        try self.realm.write({
+                            self.categories?[indexPath.row].name = textField.text!
+                        })
+                    } catch {
+                        print("Error editing context \(error)")
+                    }
+                    self.tableView.reloadData()
+                    
+                }
+            }
+            
+            alert.addTextField { alertTextField in
+                alertTextField.placeholder = "Название категории"
+                alertTextField.text = textField.text
+                textField = alertTextField
+            }
+            
+            alert.addAction(action)
+            self.present(alert, animated: true)
+        }
+        edit.backgroundColor = UIColor.blue
+        
+        let swipeActions = UISwipeActionsConfiguration(actions: [delete, edit])
+        
+        return swipeActions
     }
+    
     
     //MARK: - Create New Category
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
