@@ -21,6 +21,7 @@ class TaskListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = selectedCategory?.name
         
     }
 
