@@ -45,7 +45,7 @@ class CategoryViewController: UITableViewController {
             return cell
         } else {
             
-            cell.textLabel?.text = "Категорий дел пока нет"
+            cell.textLabel?.text = "Нет дел? Добавь"
             cell.textLabel?.textColor = UIColor(.gray)
             tableView.separatorStyle = .none
             
@@ -88,9 +88,9 @@ class CategoryViewController: UITableViewController {
             var textField = UITextField()
             textField.text = self.categories?[indexPath.row].name
             
-            let alert = UIAlertController(title: "Изменить название категории", message: "", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Измение название категории", message: "", preferredStyle: .alert)
             
-            let action = UIAlertAction(title: "Изменить категорию", style: .default) { action in
+            let action = UIAlertAction(title: "Изменить", style: .default) { action in
                 if textField.text != "" {
                     
                     do {
@@ -127,9 +127,9 @@ class CategoryViewController: UITableViewController {
         
         var textField = UITextField()
         
-        let alert = UIAlertController(title: "Добавить новую категорию задачек", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Новая категория задачек", message: "", preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Добавить категорию", style: .default) { action in
+        let action = UIAlertAction(title: "Добавить", style: .default) { action in
             if textField.text != "" {
                 
                 do {

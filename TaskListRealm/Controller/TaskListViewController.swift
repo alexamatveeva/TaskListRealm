@@ -96,9 +96,9 @@ class TaskListViewController: UITableViewController {
             var textField = UITextField()
             textField.text = self.taskList?[indexPath.row].title
             
-            let alert = UIAlertController(title: "Изменить название задачи", message: "", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Измение название задачи", message: "", preferredStyle: .alert)
             
-            let action = UIAlertAction(title: "Изменить задачу", style: .default) { action in
+            let action = UIAlertAction(title: "Изменить", style: .default) { action in
                 if textField.text != "" {
                     
                     do {
@@ -134,9 +134,9 @@ class TaskListViewController: UITableViewController {
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
         
-        let alert = UIAlertController(title: "Добавить новую задачу", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Новая задача", message: "", preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Добавить задачу", style: .default) { action in
+        let action = UIAlertAction(title: "Добавить", style: .default) { action in
             if textField.text != "" {
                 
                 if let currentCategory = self.selectedCategory {
