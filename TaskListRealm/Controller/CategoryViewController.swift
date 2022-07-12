@@ -16,6 +16,10 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: Notification.Name("doneChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: Notification.Name("taskAdded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: Notification.Name("taskDeleted"), object: nil)
+        tableView.register(CategoryCell.nib(), forCellReuseIdentifier: CategoryCell.identifier)
         loadCategories()
     }
 
@@ -33,20 +37,22 @@ class CategoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
         
         
         if categories?.count != 0 {
             
-            cell.textLabel?.text = categories?[indexPath.row].name
-            cell.textLabel?.textColor = UIColor(.primary)
+            cell.nameLabel.text = categories?[indexPath.row].name
+            cell.nameLabel.textColor = UIColor(.primary)
+            cell.counterLabel.text = countDoneTasks(category: categories![indexPath.row])
             tableView.separatorStyle = .singleLine
             
             return cell
         } else {
             
-            cell.textLabel?.text = "Нет дел? Добавь"
-            cell.textLabel?.textColor = UIColor(.gray)
+            cell.nameLabel.text = "Нет дел? Добавь"
+            cell.nameLabel.textColor = UIColor(.gray)
+            cell.counterLabel.isHidden = true
             tableView.separatorStyle = .none
             
             return cell
@@ -166,5 +172,23 @@ class CategoryViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    @objc func updateData() {
+        tableView.reloadData()
+    }
+    
+    //MARK: - Helpful Functions
+    func countDoneTasks(category: Category) -> String {
+        var countDone = 0
+        
+        if category.tasks.count != 0 {
+            for task in category.tasks {
+                if task.done == true {
+                    countDone = countDone + 1
+                }
+            }
+        }
+        
+        return String("\(countDone)/\(category.tasks.count)")
+    }
 
 }

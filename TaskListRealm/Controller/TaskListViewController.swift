@@ -54,6 +54,7 @@ class TaskListViewController: UITableViewController {
     //MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if taskList?.count != 0 {
+            NotificationCenter.default.post(name: Notification.Name("doneChanged"), object: nil)
             if taskList?[indexPath.row].done == true {
                 do {
                     try realm.write {
@@ -89,6 +90,8 @@ class TaskListViewController: UITableViewController {
                     print("Error deleting task, \(error)")
                 }
             }
+            
+            NotificationCenter.default.post(name: Notification.Name("taskDeleted"), object: nil)
             self.tableView.reloadData()
         }
         
@@ -153,7 +156,7 @@ class TaskListViewController: UITableViewController {
                     } catch {
                         print("Error saving new task \(error)")
                     }
-                    
+                    NotificationCenter.default.post(name: Notification.Name("taskAdded"), object: nil)
                     self.tableView.reloadData()
                 }
             }

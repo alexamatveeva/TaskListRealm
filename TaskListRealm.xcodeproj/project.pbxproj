@@ -17,6 +17,8 @@
 		A85CA345286DDC4700A83EAB /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85CA344286DDC4700A83EAB /* TaskListViewController.swift */; };
 		A85CA348286DE53200A83EAB /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85CA347286DE53200A83EAB /* Category.swift */; };
 		A85CA34A286DEB7100A83EAB /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85CA349286DEB7100A83EAB /* Task.swift */; };
+		A85CA36D2878530B00A83EAB /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85CA36B2878530B00A83EAB /* CategoryCell.swift */; };
+		A85CA36E2878530B00A83EAB /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A85CA36C2878530B00A83EAB /* CategoryCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		A85CA344286DDC4700A83EAB /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		A85CA347286DE53200A83EAB /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		A85CA349286DEB7100A83EAB /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		A85CA36B2878530B00A83EAB /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		A85CA36C2878530B00A83EAB /* CategoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		E1DAE0CA375EDA0D046F2E5F /* Pods-TaskListRealm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskListRealm.release.xcconfig"; path = "Target Support Files/Pods-TaskListRealm/Pods-TaskListRealm.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				A85CA32B286DD61A00A83EAB /* Main.storyboard */,
+				A85CA36B2878530B00A83EAB /* CategoryCell.swift */,
+				A85CA36C2878530B00A83EAB /* CategoryCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -187,6 +193,7 @@
 				A85CA332286DD61C00A83EAB /* LaunchScreen.storyboard in Resources */,
 				A85CA32F286DD61C00A83EAB /* Assets.xcassets in Resources */,
 				A85CA32D286DD61A00A83EAB /* Main.storyboard in Resources */,
+				A85CA36E2878530B00A83EAB /* CategoryCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +249,7 @@
 				A85CA326286DD61A00A83EAB /* AppDelegate.swift in Sources */,
 				A85CA348286DE53200A83EAB /* Category.swift in Sources */,
 				A85CA345286DDC4700A83EAB /* TaskListViewController.swift in Sources */,
+				A85CA36D2878530B00A83EAB /* CategoryCell.swift in Sources */,
 				A85CA341286DD8B300A83EAB /* CategoryViewController.swift in Sources */,
 				A85CA34A286DEB7100A83EAB /* Task.swift in Sources */,
 				A85CA328286DD61A00A83EAB /* SceneDelegate.swift in Sources */,
